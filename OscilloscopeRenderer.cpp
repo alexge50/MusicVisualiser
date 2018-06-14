@@ -11,14 +11,15 @@ static const char* vertexShader = "#version 330 core\n"
                                   "gl_Position = vec4(pos.x, pos.y, pos.z, 1.0);"
                                   "}";
 static const char* fragmentShader = "#version 330 core\n"
-                                    "out vec4 fragmentColor;"
+                                    "layout(location = 0) out vec4 fragmentColor;"
                                     "void main()"
                                     "{"
                                     "fragmentColor = vec4(0.0f, 0.0f, 0.0f, 1.0f);"
                                     "}";
 
-void OscilloscopeRenderer::Init(int nSamples)
+void OscilloscopeRenderer::Init(ScreenDimension viewDimension, int nSamples)
 {
+    m_viewDimension = viewDimension;
     m_nSamples = nSamples;
 
     for (int i = 0; i < nSamples; i++)
@@ -88,6 +89,9 @@ void OscilloscopeRenderer::Render(BufferData &data, Id framebufferId)
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     //render pass
+    glBindFramebuffer(GL_FRAMEBUFFER, framebufferId);
+    //glViewport(0, 0, m_viewDimension.width, m_viewDimension.height);
+
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -102,4 +106,6 @@ void OscilloscopeRenderer::Render(BufferData &data, Id framebufferId)
 void OscilloscopeRenderer::Destroy()
 {
     glDeleteBuffers(1, &m_vboId);
+    glDeleteVertexArrays(1, &m_vaoId);
+    glDeleteProgram(m_shaderId);
 }

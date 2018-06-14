@@ -9,17 +9,21 @@
 #include "util.h"
 #include "OscilloscopeRenderer.h"
 
-const int SAMPLES_PER_FRAME = 512;
+const int SAMPLES_PER_FRAME = 1024;
 void SetTestData(BufferData&);
 
 int main()
 {
     glfwInit();
 
-    GLFWwindow *window = glfwCreateWindow(640, 480, "Music Visualiser", NULL, NULL);
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+    GLFWwindow *window = glfwCreateWindow(1920, 1080, "Music Visualiser", NULL, NULL);
     Renderer renderer;
     GraphRendererStrongPtr graphRenderer;
     BufferData bufferData;
+    ScreenDimension windowDimensions, viewDimensions;
+
+    windowDimensions = viewDimensions = {1920, 1080};
 
     if(!window)
     {
@@ -31,9 +35,9 @@ int main()
     glfwMakeContextCurrent(window);
     gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
 
-    renderer.Init();
+    renderer.Init(windowDimensions, viewDimensions);
     graphRenderer = std::make_shared<OscilloscopeRenderer>();
-    graphRenderer->Init(SAMPLES_PER_FRAME);
+    graphRenderer->Init(viewDimensions, SAMPLES_PER_FRAME);
     renderer.SetGraphRenderer(graphRenderer);
     while(!glfwWindowShouldClose(window))
     {
@@ -61,5 +65,5 @@ void SetTestData(BufferData &d)
 {
     d.clear();
     for (int i = 0; i < SAMPLES_PER_FRAME; i++)
-        d.push_back(sinf(static_cast<float>(i) / static_cast<float>(SAMPLES_PER_FRAME / 32)));
+        d.push_back(sinf(static_cast<float>(i) / static_cast<float>(SAMPLES_PER_FRAME / 8)));
 }
