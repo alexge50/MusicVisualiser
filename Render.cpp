@@ -122,11 +122,20 @@ void Renderer::Render(BufferData &data)
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glViewport(0, 0, m_windowDimension.width, m_windowDimension.height);
+
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     glUseProgram(m_shaderId);
     glBindTexture(GL_TEXTURE_2D, m_renderTextureId);
     glActiveTexture(0);
     glBindVertexArray(m_quadVaoId);
     glDrawArrays(GL_TRIANGLES, 0, 6);
+
+    glDisable(GL_BLEND);
 }
 
 void Renderer::Destroy()

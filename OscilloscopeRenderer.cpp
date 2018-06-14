@@ -92,7 +92,7 @@ void OscilloscopeRenderer::Render(BufferData &data, Id framebufferId)
     glBindFramebuffer(GL_FRAMEBUFFER, framebufferId);
     //glViewport(0, 0, m_viewDimension.width, m_viewDimension.height);
 
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     glUseProgram(m_shaderId);
