@@ -39,42 +39,7 @@ void OscilloscopeRenderer::Init(ScreenDimension viewDimension, int nSamples)
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    /*shader creation*/ //TODO: Move in GraphRendererBase
-    int  success;
-    char infoLog[512];
-
-    unsigned int vertexShaderId;
-    vertexShaderId = glCreateShader(GL_VERTEX_SHADER);
-
-    glShaderSource(vertexShaderId, 1, &vertexShader, NULL);
-    glCompileShader(vertexShaderId);
-
-    glGetShaderiv(vertexShaderId, GL_COMPILE_STATUS, &success);
-    if(!success)
-    {
-        glGetShaderInfoLog(vertexShaderId, 512, NULL, infoLog);
-        printf("%s\n", infoLog);
-    }
-
-
-    unsigned int fragmentShaderId;
-    fragmentShaderId = glCreateShader(GL_FRAGMENT_SHADER);
-
-    glShaderSource(fragmentShaderId, 1, &fragmentShader, NULL);
-    glCompileShader(fragmentShaderId);
-
-    glGetShaderiv(fragmentShaderId, GL_COMPILE_STATUS, &success);
-    if(!success)
-    {
-        glGetShaderInfoLog(fragmentShaderId, 512, NULL, infoLog);
-        printf("%s\n", infoLog);
-    }
-
-    m_shaderId = glCreateProgram();
-    glAttachShader(m_shaderId, vertexShaderId);
-    glAttachShader(m_shaderId, fragmentShaderId);
-    glLinkProgram(m_shaderId);
-
+    m_shaderId = LoadShader(vertexShader, fragmentShader);
 }
 
 void OscilloscopeRenderer::Render(BufferData &data, Id framebufferId)

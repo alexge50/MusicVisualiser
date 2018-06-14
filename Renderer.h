@@ -8,9 +8,10 @@
 #include <glad/glad.h>
 #include "util.h"
 #include "IGraphRenderer.h"
+#include "BaseRenderer.h"
 
 //renders scene to buffer
-class Renderer
+class Renderer: public BaseRenderer
 {
 public:
     void SetGraphRenderer(GraphRendererStrongPtr pGraphRenderer);

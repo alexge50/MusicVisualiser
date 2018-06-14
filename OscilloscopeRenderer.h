@@ -7,8 +7,9 @@
 
 #include <glad/glad.h>
 #include "IGraphRenderer.h"
+#include "BaseRenderer.h"
 
-class OscilloscopeRenderer: public IGraphRenderer
+class OscilloscopeRenderer: public IGraphRenderer, public BaseRenderer
 {
 public:
     void Init(ScreenDimension viewDimension, int nSamples) override;

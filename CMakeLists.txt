@@ -24,7 +24,7 @@ set(SOURCE_FILES main.cpp
                  Render.cpp
                  Renderer.h
                  IGraphRenderer.h
-                 util.h OscilloscopeRenderer.cpp OscilloscopeRenderer.h)
+                 util.h OscilloscopeRenderer.cpp OscilloscopeRenderer.h BaseRenderer.cpp BaseRenderer.h)
 
 add_executable(MusicVisualiser ${SOURCE_FILES} ${GLAD_SOURCE})
 target_link_libraries(MusicVisualiser dl ${OPENGL_gl_LIBRARY} ${GLFW_LIBRARIES} ${PORTAUDIO_LIBRARIES})

@@ -44,13 +44,8 @@ void Renderer::Init(ScreenDimension windowDimensions, ScreenDimension viewDimens
     glGenFramebuffers(1, &m_fboId);
     glBindFramebuffer(GL_FRAMEBUFFER, m_fboId);
 
-    glGenTextures(1, &m_renderTextureId);
-    glBindTexture(GL_TEXTURE_2D, m_renderTextureId);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, viewDimensions.width, viewDimensions.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    m_renderTextureId = CreateTexture2D(viewDimensions.width, viewDimensions.height, GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE);
 
     glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, m_renderTextureId, 0);
 
@@ -77,41 +72,8 @@ void Renderer::Init(ScreenDimension windowDimensions, ScreenDimension viewDimens
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    /*shader*/
-    int  success;
-    char infoLog[512];
 
-    unsigned int vertexShaderId;
-    vertexShaderId = glCreateShader(GL_VERTEX_SHADER);
-
-    glShaderSource(vertexShaderId, 1, &vertexShader, NULL);
-    glCompileShader(vertexShaderId);
-
-    glGetShaderiv(vertexShaderId, GL_COMPILE_STATUS, &success);
-    if(!success)
-    {
-        glGetShaderInfoLog(vertexShaderId, 512, NULL, infoLog);
-        printf("%s\n", infoLog);
-    }
-
-
-    unsigned int fragmentShaderId;
-    fragmentShaderId = glCreateShader(GL_FRAGMENT_SHADER);
-
-    glShaderSource(fragmentShaderId, 1, &fragmentShader, NULL);
-    glCompileShader(fragmentShaderId);
-
-    glGetShaderiv(fragmentShaderId, GL_COMPILE_STATUS, &success);
-    if(!success)
-    {
-        glGetShaderInfoLog(fragmentShaderId, 512, NULL, infoLog);
-        printf("%s\n", infoLog);
-    }
-
-    m_shaderId = glCreateProgram();
-    glAttachShader(m_shaderId, vertexShaderId);
-    glAttachShader(m_shaderId, fragmentShaderId);
-    glLinkProgram(m_shaderId);
+    m_shaderId = LoadShader(vertexShader, fragmentShader);
 
     glUniform1i(glGetUniformLocation(m_shaderId, "screenTexture"), 0);
 }
