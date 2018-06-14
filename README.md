@@ -1,4 +1,4 @@
-#Music Visualiser
-##Todo 
+#Music Visualiser  
+##Todo   
 * Oscilloscope view
 * Spectogram view
