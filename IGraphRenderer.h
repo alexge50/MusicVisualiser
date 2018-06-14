@@ -5,6 +5,7 @@
 #ifndef MUSICVISUALISER_IGRAPHRENDERER_H
 #define MUSICVISUALISER_IGRAPHRENDERER_H
 
+#include <memory>
 #include "util.h"
 
 class IGraphRenderer;
@@ -14,7 +15,9 @@ typedef std::shared_ptr<IGraphRenderer> GraphRendererStrongPtr;
 class IGraphRenderer
 {
 public:
+    virtual void Init(int nSamples) = 0;
     virtual void Render(BufferData &data, Id framebufferId) = 0;
+    virtual void Destroy() = 0;
 };
 
 
