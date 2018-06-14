@@ -14,11 +14,12 @@ class Renderer
 public:
     void SetGraphRenderer(GraphRendererStrongPtr pGraphRenderer);
 
+    void Init();
     void Render(BufferData &data);
+    void Destroy();
 
 private:
     GraphRendererStrongPtr m_pGraphRenderer;
 };
-
 
 #endif //MUSICVISUALISER_RENDERER_H
