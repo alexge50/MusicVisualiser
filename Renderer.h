@@ -21,6 +21,9 @@ public:
     void Destroy();
 
 private:
+    void InitQuadVao();
+
+private:
     GraphRendererStrongPtr m_pGraphRenderer;
     unsigned int m_fboId;
     unsigned int m_renderTextureId;
