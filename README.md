@@ -6,4 +6,4 @@ This is a music visualiser, which has as input sound from an input device (curre
 * Special effects applied on the boring image. 
 * procedurally generating a background, based on the data from the sound.  
 ## Current status
-![Music Visualiser](Screenshots/Screenshot from 2018-06-17 00-57-36.png?raw=true "Screenshot")
+![Music Visualiser](Screenshots/Screenshot-from-2018-06-17-00-57-36.png?raw=true "Screenshot")
